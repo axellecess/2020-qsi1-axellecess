@@ -101,3 +101,26 @@ let score = (current, winner) =>
   };
 
 let newGame = Points({playerOne: Love, playerTwo: Love});
+
+let string_of_player = (player) => 
+  switch player {
+  | PlayerOne => "Player One"
+  | PlayerTwo => "Player Two"
+  };
+
+let string_of_point = (point) => 
+  switch point {
+  | Love => "0"
+  | Fifteen => "15"
+  | Thirty => "30"
+  | Forty => "40"
+  };
+
+let string_of_score = (score) => 
+  switch score {
+  | Points(pointsData) => "Player One : " ++ string_of_point(pointsData.playerOne) ++ " points - Player Two : " ++ string_of_point(pointsData.playerTwo) ++ " points"
+  | Forty(fortyData) => (fortyData.player == PlayerOne) ? string_of_player(fortyData.player) ++ " : 40 points - Player Two : " ++ string_of_point(fortyData.otherPlayerPoint) ++ " points" : "Player One : " ++ string_of_point(fortyData.otherPlayerPoint) ++ " points - " ++ string_of_player(fortyData.player) ++ " : 40 points"
+  | Deuce => "This is a deuce between both players"
+  | Advantage(player) => "Advantage to " ++ string_of_player(player)
+  | Game(player) => string_of_player(player) ++ " won the game"
+  };

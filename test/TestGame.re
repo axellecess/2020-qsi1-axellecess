@@ -61,7 +61,7 @@ describe("Test Game transitions", ({test}) => {
     let loveFifteen = {playerOne: Love, playerTwo: Fifteen};
     let loveThirty = {playerOne: Love, playerTwo: Thirty};
     expect.equal(
-      scoreWhenPoints(loveFifteen, PlayerOne),
+      scoreWhenPoints(loveFifteen, PlayerTwo),
       Points(loveThirty)
     );
   });
@@ -69,10 +69,100 @@ describe("Test Game transitions", ({test}) => {
     "Given player: 30 | other : 15 when player wins then score is 40/15",
     ({expect}) => {
       let thirtyFifteen = {playerOne: Thirty, playerTwo: Fifteen};
-      let fortyFifteen = {playerOne: Forty, playerTwo: Fifteen};
+      let fortyFifteen = Forty{player: PlayerOne, otherPlayerPoint: Fifteen};
       expect.equal(
         scoreWhenPoints(thirtyFifteen, PlayerOne),
-        Points(fortyFifteen)
+        fortyFifteen
+      );
+  });
+  test(
+    "string_of_player when it is PlayerOne",
+    ({expect}) => {
+      expect.equal(
+        string_of_player(PlayerOne),
+        "Player One"
+      );
+  });
+  test(
+    "string_of_player when it is PlayerTwo",
+    ({expect}) => {
+      expect.equal(
+        string_of_player(PlayerTwo),
+        "Player Two"
+      );
+  });
+  test(
+    "string_of_point when point is Love",
+    ({expect}) => {
+      expect.equal(
+        string_of_point(Love),
+        "0"
+      );
+  });
+  test(
+    "string_of_point when point is Fifteen",
+    ({expect}) => {
+      expect.equal(
+        string_of_point(Fifteen),
+        "15"
+      );
+  });
+  test(
+    "string_of_point when point is Thirty",
+    ({expect}) => {
+      expect.equal(
+        string_of_point(Thirty),
+        "30"
+      );
+  });
+  test(
+    "string_of_point when point is Forty",
+    ({expect}) => {
+      expect.equal(
+        string_of_point(Forty),
+        "40"
+      );
+  });
+  test(
+    "string_of_score when it is Points",
+    ({expect}) => {
+      let pointsData = {playerOne: Love, playerTwo: Thirty};
+      expect.equal(
+        string_of_score(Points(pointsData)),
+        "Player One : 0 points - Player Two : 30 points"
+      );
+  });
+  test(
+    "string_of_score when it is Forty",
+    ({expect}) => {
+      let fortyData = {player: PlayerOne, otherPlayerPoint: Love};
+      expect.equal(
+        string_of_score(Forty(fortyData)),
+        "Player One : 40 points - Player Two : 0 points"
+      );
+  });
+  test(
+    "string_of_score when it is Deuce",
+    ({expect}) => {
+      expect.equal(
+        string_of_score(Deuce),
+        "This is a deuce between both players"
+      );
+  });
+  test(
+    "string_of_score when it is Advantage",
+    ({expect}) => {
+      expect.equal(
+        string_of_score(Advantage(PlayerOne)),
+        "Advantage to Player One"
+      );
+  });
+  test(
+    "string_of_score when it is Game",
+    ({expect}) => {
+      expect.equal(
+        string_of_score(Game(PlayerTwo)),
+        "Player Two won the game"
       );
   });
 });
